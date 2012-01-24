@@ -1,0 +1,6 @@
+name = "Beer O'Clock"
+description = "A function that tells you when its off-peak hours, time for a beer"
+
+core = 7.x
+files[] = beer_o_clock.module
+configure = admin/config/system/beer-o-clock

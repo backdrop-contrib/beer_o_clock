@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function beer_o_clock_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#beer_o_clock':
+      return '<p>' . t("Provides an easy way to produce a page that will simply tell you whether it is beer o'clock yet or not. Beer o'clock can be configured in the administration settings for the site to suit your particular company/workplace.") . '</p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function beer_o_clock_menu() {
+  $items = array();
+  $items['admin/config/system/beer-o-clock'] = array(
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('beer_o_clock_settings'),
+    'title'             => t("Beer O'Clock Settings"),
+    'description'       => t("Configure when it is time for Beer O'Clock"),
+    'type'              => MENU_NORMAL_ITEM,
+    'access arguments'  => array('access administration pages')
+  );
+  $items['admin/reports/is_it_beer_o_clock'] = array(
+    'page callback'     => 'beer_o_clock_check',
+    'title'             => t("Is it Beer O'Clock yet?"),
+    'description'       => t("Check to see if it is time for Beer O'Clock now"),
+    'type'              => MENU_NORMAL_ITEM,
+    'access arguments'  => array('access administration pages'),
+  );
+  return $items;
+}
+
+/**
+ * The administration settings form
+ */
+function beer_o_clock_settings($form, $form_state) {
+  // sunday is day zero to co-incide with PHP.net
+  $form['beer_o_clock_day'] = array(
+    '#type'          => 'select',
+    '#title'         => t("Beer O'Clock Day of the week"),
+    '#description'   => t("The day on which Beer O'Clock is on"),
+    '#options'       => array(
+      0 => t('Sunday'),
+      1 => t('Monday'),
+      2 => t('Tuesday'),
+      3 => t('Wednesday'),
+      4 => t('Thursday'),
+      5 => t('Friday'),
+      6 => t('Saturday'),
+    ),
+    '#default_value' => variable_get('beer_o_clock_day', 5),
+    '#required'      => TRUE,
+  );
+  $form['beer_o_clock_hour'] = array(
+    '#type'          => 'select',
+    '#title'         => t("Beer O'Clock Hour of the day"),
+    '#description'   => t("The time that Beer O'Clock starts - in 24 hour time format"),
+    '#options'       => range(0, 23),
+    '#default_value' => variable_get('beer_o_clock_hour', 16),
+    '#required'      => TRUE,
+  );
+  $form['beer_o_clock_message'] = array(
+    '#title'         => t("Message to display when it is Beer O'Clock"),
+    '#type'          => 'textarea',
+    '#description'   => t("This message is displayed to the end user when it is Beer O'Clock"),
+    '#default_value' => variable_get('beer_o_clock_message', t('It sure is!')),
+  );
+
+  $form['#validate'][] = 'beer_o_clock_settings_validate';
+  return system_settings_form($form);
+}
+
+/**
+ * Unused validation callback for the administration settings, could potentially
+ * be used in the future to make sure sensible settings are used.
+ */
+function beer_o_clock_settings_validate($form, $form_state) {}
+
+/**
+ * Page callback
+ */
+function beer_o_clock_check() {
+  $beer_day = variable_get('beer_o_clock_day', 5);
+  $beer_hour = variable_get('beer_o_clock_hour', 16);
+  $today = date('w');
+  $hour = date('G');
+  if ($beer_day == $today && $hour >= $beer_hour) {
+    $output = variable_get('beer_o_clock_message', t('It sure is!'));
+  }
+  else{
+    $output = t('Not yet buddy!');
+  }
+
+  return '<p>' . $output . '</p>';
+}
