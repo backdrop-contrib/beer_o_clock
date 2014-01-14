@@ -1,9 +1,8 @@
 (function ($) {
   var currentdate = new Date();
   var now = Math.round(new Date().getTime()/1000.0);
-  var beer_o_clock = Drupal.settings.beer_o_clock.time || now + 231720;
+  var beer_o_clock = Drupal.settings.beer_o_clock.boc_timer;
   var diff = beer_o_clock - now;
-  var seconds = diff % 60;
   var seconds_min = Math.floor(diff / 60);
   var minutes = seconds_min % 60;
   var hour_min = Math.floor(seconds_min / 60);
@@ -21,7 +20,14 @@
   }
   return number + ""; // always return a string
 	}
-
+	
+	setInterval(function () {
+		var seconds = diff % 60;
+		$("#boc_timer").text(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));	
 	console.log(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));
+		diff--;
+	}, 1000);
 
 })(jQuery);
+
+
