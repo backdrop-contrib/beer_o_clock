@@ -116,7 +116,10 @@ function beer_o_clock_check() {
     }
     //change beer o'clock to be correct hour
     $boc->setTime($beer_hour, 0, 0);
-    $boc_time = $boc->format('U');
+    $boc_timer = $boc->format('U');
+    $boc_timer = (int)$boc_timer;
+    drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
+
 
     $output = "<div id'boc_timer'></div>"  . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
   }
