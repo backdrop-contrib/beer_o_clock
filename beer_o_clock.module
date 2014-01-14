@@ -93,11 +93,32 @@ function beer_o_clock_check() {
   $beer_hour = variable_get('beer_o_clock_hour', 16);
   $today = date('w');
   $hour = date('G');
-  if ($beer_day == $today && $hour >= $beer_hour) {
+  if ($beer_day == $today && $hour == $beer_hour) {
     $output = variable_get('beer_o_clock_message', t('It sure is!'));
   }
   else{
-    $output = "" . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
+    $boc = new DateTime();
+    if($beer_day != $today){
+      if ($beer_day < $today) {
+        //makes today negative number
+        $today = $beer_day - $today;
+        //always more than one day
+        $day = "days";
+      } else {
+        //ternary if it is more than one it is day day is days other wise
+        (($beer_day - $today) == 1) ? $day = "day" : $day = "days";
+      }
+      //finds number of days till beer o'clock (if negative it effectively
+      //becomes addition
+      $diff = $beer_day - $today;
+      //increase change beer o'clock to be the next friday
+      $boc->modify("+" . $diff . " " . $day);
+    }
+    //change beer o'clock to be correct hour
+    $boc->setTime($beer_hour, 0, 0);
+    $boc_time = $boc->format('U');
+
+    $output = "<div id'boc_timer'></div>"  . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
   }
 
   return '<p>' . $output . '</p>';
