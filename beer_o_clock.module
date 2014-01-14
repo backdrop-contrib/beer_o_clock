@@ -144,10 +144,21 @@ function beer_o_clock_block_view($delta = '') {
   switch ($delta) {
     case'beer_o_clock':
       $block['subject'] = t("Is it Beer O'Clock?");
-      if (user_access('access_content')) {
+      if (user_access('access_beer_o_clock')) {
         $block['content'] = beer_o_clock_check();
       }
       break;
   }
   return $block;
+}
+/**
+ * Implements hook_permission()
+ **/
+function beer_o_clock_permission() {
+  return array(
+    'access_beer_o_clock' => array(
+      'title' => t('Access Beer O\'Clock'),
+      'description' => t('ability to view Beer O\'Clock stuff'),
+    ),
+  );
 }
