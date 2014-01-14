@@ -97,8 +97,33 @@ function beer_o_clock_check() {
     $output = variable_get('beer_o_clock_message', t('It sure is!'));
   }
   else{
-    $output = variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
+    $output = "" . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
   }
 
   return '<p>' . $output . '</p>';
+}
+
+/**
+ * Implements hook_block_info()
+ **/
+function beer_o_clock_block_info(){
+  $blocks['beer_o_clock'] = array(
+    'info'   => t('Beer O\'Clock'),
+   'cache'  => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+/**
+ * Implements hook_block_view()
+ **/
+function beer_o_clock_block_view($delta = '') {
+  switch ($delta) {
+    case'beer_o_clock':
+      $block['subject'] = t("Is it Beer O'Clock?");
+      if (user_access('access_content')) {
+        $block['content'] = beer_o_clock_check();
+      }
+      break;
+  }
+  return $block;
 }
