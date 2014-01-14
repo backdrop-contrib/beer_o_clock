@@ -177,3 +177,11 @@ function beer_o_clock_block_configure($delta = ''){
   }
   return $form;
 }
+/**
+ * Implements hook_block_save()
+ **/
+function beer_o_clock_save($delta = ''){
+  if ($delta == 'beer_o_clock'){
+    variable_set('display_boc_countdown', $edit['display_boc_countdown']);
+  }
+}
