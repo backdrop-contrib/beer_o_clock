@@ -68,6 +68,12 @@ function beer_o_clock_settings($form, $form_state) {
     '#description'   => t("This message is displayed to the end user when it is Beer O'Clock"),
     '#default_value' => variable_get('beer_o_clock_message', t('It sure is!')),
   );
+  $form['beer_o_clock_not_message'] = array(
+    '#title'         => t("Message to display when it is not Beer O'Clock"),
+    '#type'          => 'textarea',
+    '#description'   => t("This message is displayed to the end user when it is not yet Beer O'Clock"),
+    '#default_value' => variable_get('beer_o_clock_not_message', t('Not yet buddy!')),
+  );
 
   $form['#validate'][] = 'beer_o_clock_settings_validate';
   return system_settings_form($form);
@@ -91,7 +97,7 @@ function beer_o_clock_check() {
     $output = variable_get('beer_o_clock_message', t('It sure is!'));
   }
   else{
-    $output = t('Not yet buddy!');
+    $output = variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
   }
 
   return '<p>' . $output . '</p>';
