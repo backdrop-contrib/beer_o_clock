@@ -121,7 +121,7 @@ function beer_o_clock_check() {
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
 
 
-    $output = "<div id'boc_timer'></div>"  . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
+    $output = "<div id='boc_timer'></div>"  . "<BR />"  . variable_get('beer_o_clock_not_message', t('Not yet buddy!'));
   }
 
   return '<p>' . $output . '</p>';
