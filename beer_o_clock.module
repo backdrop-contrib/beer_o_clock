@@ -162,3 +162,18 @@ function beer_o_clock_permission() {
     ),
   );
 }
+
+/**
+ * Implements hook_block_configure()
+ **/
+function beer_o_clock_block_configure($delta = ''){
+  $form = array();
+  if ($delta == "beer_o_clock"){
+    $form['display_boc_countdown'] = array (
+      '#type' => 'checkbox',
+      '#title' => "Display the countdown to Beer O'Clock",
+      '#default_value' => variable_get('display_boc_countdown', TRUE),
+    );
+  }
+  return $form;
+}
