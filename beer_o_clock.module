@@ -11,6 +11,17 @@ function beer_o_clock_help($path, $arg) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function beer_o_clock_theme() {
+  return array(
+    'beer_o_clock_block' => array(
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function beer_o_clock_menu() {
@@ -125,7 +136,7 @@ function beer_o_clock_check() {
     $boc_timer = (int)$boc_timer;
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
     }
-    $output =  "<p align='center'>"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!'))) . "</p>". "<BR/> <div align='center' id= 'boc_timer'> </div>";
+    $output = theme('beer_o_clock_block');
     if (variable_get('display_boc_countdown',TRUE)){
       drupal_add_js('sites/all/modules/beer_o_clock/countdown.js');
     }
@@ -133,6 +144,10 @@ function beer_o_clock_check() {
 
   return '<p align ="center">' . $output . '</p>';
 }
+
+function theme_beer_o_clock_block() { 
+    return "<p align='center'>"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!'))) . "</p>". "<BR/> <div align='center' id= 'boc_timer'> </div>";
+} 
 
 /**
  * Implements hook_block_info()
