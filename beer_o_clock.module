@@ -94,7 +94,7 @@ function beer_o_clock_check() {
   $today = date('w');
   $hour = date('G');
   if ($beer_day == $today && $hour == $beer_hour) {
-    $output = filter_xss_admin(variable_get('beer_o_clock_message', t('It sure is!')));
+    $output = "<p align="center>" . "filter_xss_admin(variable_get('beer_o_clock_message', t('It sure is!'))) . "</p>";
   }
   else{
     if (variable_get('display_boc_countdown',TRUE)){
@@ -125,7 +125,7 @@ function beer_o_clock_check() {
     $boc_timer = (int)$boc_timer;
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
     }
-    $output = "<div align='center' id='boc_timer'></div>"  . "<BR />"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!')));
+    $output = "<div align='center' id='boc_timer'></div>"  . "<BR /> <p align-"center">"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!'))) . "</p>";
     if (variable_get('display_boc_countdown',TRUE)){
       drupal_add_js('sites/all/modules/beer_o_clock/countdown.js');
     }
