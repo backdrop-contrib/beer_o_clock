@@ -4,13 +4,7 @@ jQuery(document).ready(function ($) {
   var now = Math.round(new Date().getTime()/1000.0);
   var beer_o_clock = Drupal.settings.beer_o_clock.boc_timer;
   var diff = beer_o_clock - now;
-  var seconds_min = Math.floor(diff / 60);
-  var minutes = seconds_min % 60;
-  var hour_min = Math.floor(seconds_min / 60);
-  var hours = hour_min % 24;
-  var hour_day = Math.floor(hour_min / 24);
-  var days = hour_day % 365;
-
+  
 	//http://stackoverflow.com/questions/1267283/how-can-i-create-a-zerofilled-value-using-javascript
 	function zeroFill( number, width )
 	{
@@ -24,6 +18,13 @@ jQuery(document).ready(function ($) {
 
 	countdown_Id = setInterval(function () {
 		var seconds = diff % 60;
+		var seconds_min = Math.floor(diff / 60);
+		var minutes = seconds_min % 60;
+		var hour_min = Math.floor(seconds_min / 60);
+		var hours = hour_min % 24;
+		var hour_day = Math.floor(hour_min / 24);
+		var days = hour_day % 365;
+
 		if(diff >= 0) {	
 			$("#boc_timer").text(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));
 			//console.log(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));
