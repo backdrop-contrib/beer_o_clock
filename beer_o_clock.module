@@ -120,9 +120,11 @@ function beer_o_clock_check() {
     $boc_timer = $boc->format('U');
     $boc_timer = (int)$boc_timer;
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
-    drupal_add_js('countdown.js');
     }
     $output = "<div id='boc_timer'></div>"  . "<BR />"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!')));
+    if (variable_get('display_boc_countdown',TRUE)){
+      drupal_add_js('sites/all/modules/beer_o_clock/countdown.js');
+    }
   }
 
   return '<p>' . $output . '</p>';
