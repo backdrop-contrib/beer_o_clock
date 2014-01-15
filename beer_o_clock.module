@@ -94,7 +94,7 @@ function beer_o_clock_check() {
   $today = date('w');
   $hour = date('G');
   if ($beer_day == $today && $hour == $beer_hour) {
-    $output = "<p align='center'>" . "filter_xss_admin(variable_get('beer_o_clock_message', t('It sure is!')))" . "</p>";
+    $output = "<p align='center'>" . filter_xss_admin(variable_get('beer_o_clock_message', t('It sure is!'))) . "</p>";
   }
   else{
     if (variable_get('display_boc_countdown',TRUE)){
