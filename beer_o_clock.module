@@ -115,10 +115,9 @@ function beer_o_clock_check() {
         if ($beer_day < $today) {
           //makes today negative number
           $today = $beer_day - $today;
-        } else {
+        }
          //ternary if it is more than one it is day day is days other wise
          (($beer_day - $today) == 1) ? $day = "day" : $day = "days";
-        }
         //finds number of days till beer o'clock (if negative it effectively
        //becomes addition
        $diff = $beer_day - $today;
