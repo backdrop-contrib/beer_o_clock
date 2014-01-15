@@ -102,9 +102,7 @@ function beer_o_clock_check() {
      if($beer_day != $today){
         if ($beer_day < $today) {
           //makes today negative number
-         $today = $beer_day - $today;
-          //always more than one day
-          $day = "days";
+          $today = $beer_day - $today;
         } else {
          //ternary if it is more than one it is day day is days other wise
          (($beer_day - $today) == 1) ? $day = "day" : $day = "days";
@@ -114,14 +112,20 @@ function beer_o_clock_check() {
        $diff = $beer_day - $today;
        //increase change beer o'clock to be the next friday
        $boc->modify("+" . $diff . " " . $day);
-    }
+     }else {
+
+      if ($beer_hour <= $hour){
+        $boc->modify("+7 days");
+      }
+
+     }
     //change beer o'clock to be correct hour
     $boc->setTime($beer_hour, 0, 0);
     $boc_timer = $boc->format('U');
     $boc_timer = (int)$boc_timer;
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
     }
-    $output = "<div id='boc_timer'></div>"  . "<BR />"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!')));
+    $output = "<div align='center' id='boc_timer'></div>"  . "<BR />"  . filter_xss_admin(variable_get('beer_o_clock_not_message', t('Not yet buddy!')));
     if (variable_get('display_boc_countdown',TRUE)){
       drupal_add_js('sites/all/modules/beer_o_clock/countdown.js');
     }
