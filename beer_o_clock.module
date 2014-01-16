@@ -1,4 +1,11 @@
 <?php
+/**
+* @file
+* This runs a weekly countdown to an hour called beer o'clock
+*
+* This contains all of the non-js code for the module
+*
+*/
 
 /**
  * Implements hook_help().
@@ -29,15 +36,15 @@ function beer_o_clock_menu() {
   $items['admin/config/system/beer-o-clock'] = array(
     'page callback'     => 'drupal_get_form',
     'page arguments'    => array('beer_o_clock_settings'),
-    'title'             => t("Beer O'Clock Settings"),
-    'description'       => t("Configure when it is time for Beer O'Clock"),
+    'title'             => "Beer O'Clock Settings",
+    'description'       => "Configure when it is time for Beer O'Clock",
     'type'              => MENU_NORMAL_ITEM,
     'access arguments'  => array('access administration pages')
   );
   $items['admin/reports/is_it_beer_o_clock'] = array(
     'page callback'     => 'beer_o_clock_check',
-    'title'             => t("Is it Beer O'Clock yet?"),
-    'description'       => t("Check to see if it is time for Beer O'Clock now"),
+    'title'             => "Is it Beer O'Clock yet?",
+    'description'       => "Check to see if it is time for Beer O'Clock now",
     'type'              => MENU_NORMAL_ITEM,
     'access arguments'  => array('access administration pages'),
   );
@@ -51,8 +58,8 @@ function beer_o_clock_settings($form, $form_state) {
   // sunday is day zero to co-incide with PHP.net
   $form['beer_o_clock_day'] = array(
     '#type'          => 'select',
-    '#title'         => t("Beer O'Clock Day of the week"),
-    '#description'   => t("The day on which Beer O'Clock is on"),
+    '#title'         => "Beer O'Clock Day of the week",
+    '#description'   => "The day on which Beer O'Clock is on",
     '#options'       => array(
       0 => t('Sunday'),
       1 => t('Monday'),
@@ -109,9 +116,9 @@ function beer_o_clock_check() {
     $output = theme('beer_o_clock_block', array('message' => variable_get('beer_o_clock_message', t('It sure is!'))));
   }
   else{
-    if (variable_get('display_boc_countdown',TRUE)){
+    if (variable_get('display_boc_countdown', TRUE)) {
      $boc = new DateTime();
-     if($beer_day != $today){
+     if ($beer_day != $today) {
         if ($beer_day < $today) {
           //makes today negative number
           $today = $beer_day - $today;
@@ -123,9 +130,10 @@ function beer_o_clock_check() {
        $diff = $beer_day - $today;
        //increase change beer o'clock to be the next friday
        $boc->modify("+" . $diff . " " . $day);
-     }else {
+     }
+     else {
 
-      if ($beer_hour <= $hour){
+      if ($beer_hour <= $hour) {
         $boc->modify("+7 days");
       }
 
@@ -137,7 +145,7 @@ function beer_o_clock_check() {
     drupal_add_js(array('beer_o_clock' => array('boc_timer' => $boc_timer)), 'setting');
     }
     $output = theme('beer_o_clock_block', array('message' => variable_get('beer_o_clock_not_message', t('Not yet buddy!'))));
-    if (variable_get('display_boc_countdown',TRUE)){
+    if (variable_get('display_boc_countdown', TRUE)) {
       drupal_add_js('sites/all/modules/beer_o_clock/countdown.js');
     }
   }
@@ -146,13 +154,13 @@ function beer_o_clock_check() {
 }
 
 function theme_beer_o_clock_block($variables) {
-    return "<p align='center'>"  . filter_xss_admin($variables['message']) . "</p>". "<BR/> <div align='center' id= 'boc_timer'> </div>";
+    return "<div align='center'>" . filter_xss_admin($variables['message']) . "</div>" . "<BR/> <div align='center' id= 'boc_timer'> </div>";
 }
 
 /**
  * Implements hook_block_info()
  **/
-function beer_o_clock_block_info(){
+function beer_o_clock_block_info() {
   $blocks['beer_o_clock'] = array(
     'info'   => t('Beer O\'Clock'),
    'cache'  => DRUPAL_CACHE_GLOBAL,
@@ -188,10 +196,10 @@ function beer_o_clock_permission() {
 /**
  * Implements hook_block_configure()
  **/
-function beer_o_clock_block_configure($delta = ''){
+function beer_o_clock_block_configure($delta = '') {
   $form = array();
-  if ($delta == "beer_o_clock"){
-    $form['display_boc_countdown'] = array (
+  if ($delta == "beer_o_clock") {
+    $form['display_boc_countdown'] = array(
       '#type' => 'checkbox',
       '#title' => "Display the countdown to Beer O'Clock",
       '#default_value' => variable_get('display_boc_countdown', TRUE),
@@ -202,8 +210,8 @@ function beer_o_clock_block_configure($delta = ''){
 /**
  * Implements hook_block_save()
  **/
-function beer_o_clock_block_save($delta = '', $edit = array()){
-  if ($delta == 'beer_o_clock'){
+function beer_o_clock_block_save($delta = '', $edit = array()) {
+  if ($delta == 'beer_o_clock') {
     variable_set('display_boc_countdown', $edit['display_boc_countdown']);
   }
 }
