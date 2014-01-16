@@ -1,3 +1,8 @@
+/**
+ * @file
+ * The JavaScript that controls the beer o'clock countdown timer.
+ */
+
 jQuery(document).ready(function ($) {
 	var countdown_Id = 0; //Initialising the countdown variable
   var currentdate = new Date();
