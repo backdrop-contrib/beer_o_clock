@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
 		var hours = hour_min % 24;
 		var hour_day = Math.floor(hour_min / 24);
 		var days = hour_day % 365;
-
+    console.log(diff);
 		if(diff >= 0) {	
 			$("#boc_timer").text(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));
 			//console.log(zeroFill(days, 2)+":"+zeroFill(hours,2)+":"+zeroFill(minutes,2)+":"+zeroFill(seconds,2));
@@ -37,6 +37,8 @@ jQuery(document).ready(function ($) {
 		}
 
 		else {
+      $("#boc_text").text(Drupal.settings.beer_o_clock.boc_mess);
+      $("#boc_timer").remove();
 			clearInterval(countdown_Id);
 		}
 	}, 1000);
