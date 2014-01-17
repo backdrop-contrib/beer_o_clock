@@ -1,6 +1,4 @@
 name = "Beer O'Clock"
-description = "A function that tells you when its off-peak hours, time for a beer"
-
+description = "Provides an easy way to produce a page that will simply tell you whether it is beer o'clock yet or not. Beer o'clock can be configured in the administration settings for the site to suit your particular company/workplace."
 core = 7.x
-files[] = beer_o_clock.module
 configure = admin/config/system/beer-o-clock

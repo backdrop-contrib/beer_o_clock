@@ -1,18 +1,22 @@
 BEER O'CLOCK MODULE
 ===================
 
-DESCRIPTION:
-------------
+DESCRIPTION
+-----------
 
 Provides an easy way to produce a page that will simply tell you whether it is
 beer o'clock yet or not. Beer o'clock can be configured in the administration
 settings for the site to suit your particular company/workplace.
 
-This module was collaborately written by 8 high school students during the
-Catalyst Academy 2012 as a part of the PHP mentorship. For more details see
+This module was collaboratively written by high school students during the
+Catalyst Academy as a part of the Drupal mentorship. For more details see
 http://catalyst.net.nz/academy
 
-Original authors:
+Contributors
+------------
+
+2012
+
  - Frankie Toland
  - Nikita Vinod
  - Shairae Taepa
@@ -22,15 +26,22 @@ Original authors:
  - Chris Brown
  - Darshika Patel
 
+2014
+
+ - Nadja Jury
+ - Jacob Beal
+ - Maria Ahkit
+ - Shaika Khan
+
 Current maintainer:
  - Sean Hamlin <http://drupal.org/user/358731>
 
 
-INSTALLATION:
--------------
+INSTALLATION
+------------
 
 1. Place the entire beer_o_clock directory into your sites modules directory
-   (e.g. site/all/modules)
+   (e.g. sites/all/modules)
 
 
 2. Enable this module by navigating to:
@@ -47,3 +58,5 @@ INSTALLATION:
 
 
 4. Visit the "Is it beer o'clock" page to see whether it is time for beers
+
+5. Add the beer o'clock block to the side bar
