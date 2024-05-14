@@ -1,0 +1,8 @@
+{
+    "_config_name": "beer_o_clock.settings",
+    "beer_o_clock_day": "5",
+    "beer_o_clock_hour": "16",
+    "beer_o_clock_message": "It sure is!",
+    "beer_o_clock_not_message": "Not yet buddy!",
+    "beer_o_clock_block_countdown": "1"
+}

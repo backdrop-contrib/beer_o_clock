@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the beer_o_clock module.
+ *
+ */
+
+
+/**
+ * Migrate beer_o_clock variables to config.
+ */
+function beer_o_clock_update_1000() {
+  $config = config('beer_o_clock.settings');
+  $config->set('beer_o_clock_day', update_variable_get('beer_o_clock_day', '5'));
+  $config->set('beer_o_clock_hour', update_variable_get('beer_o_clock_hour', '16'));
+  $config->set('beer_o_clock_message', update_variable_get('beer_o_clock_message', 'It sure is!'));
+  $config->set('beer_o_clock_not_message', update_variable_get('Not yet buddy!'));
+  $config->set('beer_o_clock_block_countdown', update_variable_get('beer_o_clock_block_countdown', '1'));
+  $config->save();
+
+  update_variable_del('beer_o_clock_day');
+  update_variable_del('beer_o_clock_hour');
+  update_variable_del('beer_o_clock_message');
+  update_variable_del('beer_o_clock_not_message');
+  update_variable_del('beer_o_clock_block_countdown');
+}
+
+

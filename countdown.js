@@ -25,12 +25,12 @@ function zeroFill(number, width) {
   return number + "";
 }
 
-Drupal.behaviors.beer_o_clock_countdown = {
+Backdrop.behaviors.beer_o_clock_countdown = {
   attach: function(context) {
     var countdown_timer;
     var currentdate = new Date();
     var now = Math.round(new Date().getTime() / 1000.0);
-    var beer_o_clock = Drupal.settings.beer_o_clock.boc_timer;
+    var beer_o_clock = Backdrop.settings.beer_o_clock.boc_timer;
     var diff = beer_o_clock - now;
 
     // Countdown every second.
@@ -53,7 +53,7 @@ Drupal.behaviors.beer_o_clock_countdown = {
 
       // Now it is beer o'clock.
       else {
-        $("#boc_text").text(Drupal.settings.beer_o_clock.boc_mess);
+        $("#boc_text").text(Backdrop.settings.beer_o_clock.boc_mess);
         $("#boc_timer").remove();
         clearInterval(countdown_timer);
       }
